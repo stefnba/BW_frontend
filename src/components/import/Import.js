@@ -31,6 +31,7 @@ class ImportForm extends React.Component {
         this.setState({ isSubmitted: true })
         event.preventDefault();
 
+        
         this.fileUpload(this.state.file).then((response) => {
           console.log(response.data)  
         })
