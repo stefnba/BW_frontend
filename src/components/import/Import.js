@@ -47,7 +47,7 @@ class ImportForm extends React.Component {
                 const accounts0 = res.data;
                 const accounts = [{
                     "id": 1,
-                    "name": "New York11"
+                    "name": "New Branch"
                 }, 
                 {
                     "id": 2,
