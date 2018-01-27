@@ -1,5 +1,4 @@
 import React from 'react';
-import CSRFToken from './CSRFToken';
 
 class UploadForm extends React.Component {   
 
