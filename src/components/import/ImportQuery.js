@@ -1,6 +1,6 @@
 import React from 'react'
 import axios, { post } from 'axios'
-import AccessAPI from '../api/Api'
+import AccessAPI from '../api/api'
 
 class ImportQuery extends React.Component {
     constructor(props) {
@@ -11,11 +11,9 @@ class ImportQuery extends React.Component {
        
     }
 
-
     componentDidMount() {  
-        // AccessAPI({ api: '/test'}).then((data) => this.setState({ test: data }))
-        AccessAPI({ api: '/test', header: {'test': 123}}).then((data) => this.setState({ test: data }))
-        // AccessAPI('/test').then((data) => this.setState({ test: data }))
+        AccessAPI('/test').then((data) => this.setState({ test: data }))
+
     }
     
     render() {
