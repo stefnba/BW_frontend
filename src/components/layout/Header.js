@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { AuthButton } from '../auth/Login'
 
 const Header = () => (
     <header>
@@ -9,10 +8,9 @@ const Header = () => (
                 <li><Link to='/'>Home</Link></li>
                 <li><Link to='/import'>Import</Link></li>
                 <li><Link to='/transactions'>Transactions</Link></li>
-                <li><Link to='/login'>Login</Link></li>
+                <li><Link to='/logout'>Logout</Link></li>
             </ul>
         </nav>
-        <AuthButton />
     </header>
 )
 

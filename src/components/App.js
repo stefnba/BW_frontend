@@ -2,47 +2,53 @@ import React from 'react'
 import { Switch, Redirect, Route } from 'react-router-dom'
 
 import Header from './layout/Header'
+import HeaderPublic from './layout/HeaderPublic'
 
-// Import pages for routing
+// Pages for routing
 import Home from './Home'
 import Import from './import/Import'
 import Transactions from './Transactions'
 
-// Import authentification
-import Login, { fakeAuth } from './auth/Login'
+// Authentification
+import Login from './auth/Login'
+import Logout from './auth/Logout'
+import apiAuth from './auth/auth'
 
 
-
+// ROUTING COMPONENT
 const App = () => (
 	<div>
 		<Switch>
 			<AppRoute exact path="/" component={Home} />
 			<PrivateRoute exact path='/import' component={Import} />
 			<PrivateRoute exact path='/transactions' component={Transactions} />
+			<Route exact path='/logout' component={Logout} />
 			<Route exact path='/login' component={Login} />
 		</Switch>
 	</div>
 )
 
-// Create default layout
+// DEFAULT LAYOUT
 // adding header to each page by rendering multiple components  
 const AppRoute = ({ component: Component, ...rest }) => {
+	const header = apiAuth.isAuthenticated() ? <Header /> : <HeaderPublic />
+
 	return (
 		<Route {...rest} render={matchPropos => (
 			<div>
-				<header><Header /></header>
+				{header}
 				<main><Component {...matchPropos} /></main>
 			</div>
 		)} />
 	);
 };
 
-// Add protected routes
+// PROTECTED ROUTES
 // extends AppRoute to show pages only if logged in, otherwise login page redirect
 const PrivateRoute = ({ component: Component, ...rest }) => {
 	return (
 		<AppRoute {...rest} component={props => (
-			fakeAuth.isAuthenticated === true
+			apiAuth.isAuthenticated()
 			? <Component {...props} /> 
 			: (
 				<Redirect to={{

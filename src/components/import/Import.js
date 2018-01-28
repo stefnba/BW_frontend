@@ -1,6 +1,5 @@
 import React from 'react'
 import axios, { post } from 'axios'
-import * as Cookies from 'js-cookie'
 
 import ImportQuery from './ImportQuery'
 import UploadForm from './UploadForm'
