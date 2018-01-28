@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { AuthButton } from '../auth/Login'
 
 const Header = () => (
     <header>
@@ -11,6 +12,7 @@ const Header = () => (
                 <li><Link to='/login'>Login</Link></li>
             </ul>
         </nav>
+        <AuthButton />
     </header>
 )
 

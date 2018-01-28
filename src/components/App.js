@@ -7,7 +7,10 @@ import Header from './layout/Header'
 import Home from './Home'
 import Import from './import/Import'
 import Transactions from './Transactions'
-// import Redirect from 'react-router-dom/Redirect';
+
+// Import authentification
+import Login, { fakeAuth } from './auth/Login'
+
 
 
 const App = () => (
@@ -15,43 +18,14 @@ const App = () => (
 		<Switch>
 			<AppRoute exact path="/" component={Home} />
 			<PrivateRoute exact path='/import' component={Import} />
-			<AppRoute exact path='/transactions' component={Transactions} />
+			<PrivateRoute exact path='/transactions' component={Transactions} />
 			<Route exact path='/login' component={Login} />
 		</Switch>
 	</div>
 )
 
-const fakeAuth = {
-	isAuthenticated: true,
-	authenticate(cb) {
-	  this.isAuthenticated = true
-	  setTimeout(cb, 100) // fake async
-	},
-	signout(cb) {
-	  this.isAuthenticated = false
-	  setTimeout(cb, 100)
-	}
-}
-
-const PrivateRoute = ({ component: Component, ...rest }) => (
-	<Route {...rest} render={(props) => (
-		fakeAuth.isAuthenticated ? <Component {...props} /> : <Redirect to='/login' />
-	)} />
-)
-
-  
-class Login extends React.Component {
-	render() {
-		return (
-			<div>Login</div>
-		)
-	}
-}
-
-
-
 // Create default layout
-// Adding header to each page by rendering multiple components  
+// adding header to each page by rendering multiple components  
 const AppRoute = ({ component: Component, ...rest }) => {
 	return (
 		<Route {...rest} render={matchPropos => (
@@ -60,7 +34,24 @@ const AppRoute = ({ component: Component, ...rest }) => {
 				<main><Component {...matchPropos} /></main>
 			</div>
 		)} />
-	)
-}
+	);
+};
+
+// Add protected routes
+// extends AppRoute to show pages only if logged in, otherwise login page redirect
+const PrivateRoute = ({ component: Component, ...rest }) => {
+	return (
+		<AppRoute {...rest} component={props => (
+			fakeAuth.isAuthenticated === true
+			? <Component {...props} /> 
+			: (
+				<Redirect to={{
+					pathname: '/login',
+					state: { from: props.location }
+				}} />
+			)
+		)} />
+	);
+};
 
 export default App
