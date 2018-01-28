@@ -3,6 +3,7 @@ import axios from 'axios'
 const AccessAPI = (par) => {
 
     const isF = typeof par !== 'object' ? true : false
+    
     const urlServer = 'http://127.0.0.1:8000'
     const defaultHeaders = {
         'Authorization': 'Token d5c9cd8156427520d53a6d2f0d5d05f7e163d9f8',

@@ -8,7 +8,6 @@ class ImportQuery extends React.Component {
         this.state = { 
             test: []
         };
-       
     }
 
     componentDidMount() {  
