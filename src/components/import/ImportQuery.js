@@ -1,5 +1,6 @@
 import React from 'react'
 import axios, { post } from 'axios'
+import AccessAPI from '../api/Api'
 
 class ImportQuery extends React.Component {
     constructor(props) {
@@ -10,18 +11,11 @@ class ImportQuery extends React.Component {
        
     }
 
-    componentDidMount() {
-        axios({
-            method: 'get', 
-            url: 'http://127.0.0.1:8000/api/',
-            headers: {
-                'Authorization': 'Token d5c9cd8156427520d53a6d2f0d5d05f7e163d9f8',
-                'Content-Type': 'application/json',
-            }
-        }).then(res => {
-                console.log(res)
-                this.setState({test: res.data})
-            });
+
+    componentDidMount() {  
+        // AccessAPI({ api: '/test'}).then((data) => this.setState({ test: data }))
+        AccessAPI({ api: '/test', header: {'test': 123}}).then((data) => this.setState({ test: data }))
+        // AccessAPI('/test').then((data) => this.setState({ test: data }))
     }
     
     render() {
