@@ -1,23 +1,10 @@
 import React from 'react'
 import axios, { post } from 'axios'
 
+import AccessAPI from '../api/api'
+
 import ImportQuery from './ImportQuery'
 import UploadForm from './UploadForm'
-
-
-const accounts = [{
-            "id": 1,
-            "name": "New Branch"
-        }, 
-        {
-            "id": 2,
-            "name": "Los Angeles"
-        },
-        {
-            "id": 3,
-            "name": "Frankfurt"
-        }
-    ]
 
 class ImportForm extends React.Component {
 
@@ -47,43 +34,55 @@ class ImportForm extends React.Component {
         // this.fileUpload(this.state.file, this.state.account).then((response) => {
         //   console.log(response.data)  
         // })
+
+        this.fileUpload(this.state.file, this.state.account)
     }
 
     cancelImport(event) {
         this.setState({ isSubmitted: false });
     }
 
-    Test() {
-        axios.get('http://127.0.0.1:8000/').then(res => {
-            console.log(res)
-        })
-    }
-
     componentDidMount() {
-        axios.get('/accounts.json')
-            .then(res => {
-                const accounts0 = res.data;
-                
-                // Set account state
-                const account = accounts[0].id
-                this.setState({ accounts, account })
-
-            });
+        
+        AccessAPI('/accounts/list/').then((data) => {
+            this.setState({ accounts: data, account: data[0]['id']})
+        })
     }
 
     fileUpload(file, account) {
 
-        const url = 'http://127.0.0.1:8000/';
         const formData = new FormData();
       
-        formData.append('file', file)
+        formData.append('docfile', file)
         formData.append('account', account)
-        const config = {
+
+        axios({
+            method: 'post',
+            url: 'http://127.0.0.1:8000/import/upload/',
+            data: formData,
             headers: {
                 'content-type': 'multipart/form-data'
             }
-        }
-        return post(url, formData, config)
+        }).then(data => console.log(data.data))
+
+        // AccessAPI({
+        //     method: 'post',
+        //     api: 'import/upload/', 
+        //     header: {
+        //         'content-type': 'multipart/form-data'
+        //     }, 
+        //     data: formData
+        // }).then(data => console.log(data))
+        
+        
+        // const url = 'http://127.0.0.1:8000/import/upload/';
+        
+        // const config = {
+        //     headers: {
+        //         'content-type': 'multipart/form-data'
+        //     }
+        // }
+        // return post(url, formData, config)
     }
 
     render() {    

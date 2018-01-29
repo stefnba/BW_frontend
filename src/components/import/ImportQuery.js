@@ -11,7 +11,7 @@ class ImportQuery extends React.Component {
     }
 
     componentDidMount() {  
-        AccessAPI('/test').then((data) => this.setState({ test: data }))
+        // AccessAPI('/test').then((data) => this.setState({ test: data }))
 
     }
     
