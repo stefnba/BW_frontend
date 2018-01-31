@@ -7,7 +7,7 @@ const AccessAPI = (par) => {
     const urlServer = 'http://127.0.0.1:8000'
     const defaultHeaders = {
         'Authorization': 'Token d5c9cd8156427520d53a6d2f0d5d05f7e163d9f8',
-        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/json',
     }
     const meta = {
         url: isF ? par : par.api,

@@ -28,14 +28,13 @@ class ImportForm extends React.Component {
     }
 
     handleSubmit(event) {
-        this.setState({ isSubmitted: true })
+        
         event.preventDefault();
 
-        // this.fileUpload(this.state.file, this.state.account).then((response) => {
-        //   console.log(response.data)  
-        // })
-
-        this.fileUpload(this.state.file, this.state.account)
+        this.fileUpload(this.state.file, this.state.account).then( response => {
+            console.log(response)
+            this.setState({ isSubmitted: true })
+        })
     }
 
     cancelImport(event) {
@@ -52,37 +51,17 @@ class ImportForm extends React.Component {
     fileUpload(file, account) {
 
         const formData = new FormData();
-      
         formData.append('docfile', file)
-        formData.append('account', account)
+        formData.append('account', account)       
 
-        axios({
+        return AccessAPI({
             method: 'post',
-            url: 'http://127.0.0.1:8000/import/upload/',
-            data: formData,
-            headers: {
+            api: '/import/upload/', 
+            header: {
                 'content-type': 'multipart/form-data'
-            }
-        }).then(data => console.log(data.data))
-
-        // AccessAPI({
-        //     method: 'post',
-        //     api: 'import/upload/', 
-        //     header: {
-        //         'content-type': 'multipart/form-data'
-        //     }, 
-        //     data: formData
-        // }).then(data => console.log(data))
-        
-        
-        // const url = 'http://127.0.0.1:8000/import/upload/';
-        
-        // const config = {
-        //     headers: {
-        //         'content-type': 'multipart/form-data'
-        //     }
-        // }
-        // return post(url, formData, config)
+            }, 
+            data: formData
+        })
     }
 
     render() {    
