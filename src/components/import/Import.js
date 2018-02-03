@@ -3,7 +3,7 @@ import axios, { post } from 'axios'
 
 import AccessAPI from '../api/api'
 
-import ImportQuery from './ImportQuery'
+import ImportSelection from './ImportSelection'
 import UploadForm from './UploadForm'
 
 class ImportForm extends React.Component {
@@ -65,7 +65,7 @@ class ImportForm extends React.Component {
     }
 
     render() {    
-        return this.state.isSubmitted ? <ImportQuery data={this.state} cancelImport={this.cancelImport} /> : <UploadForm data={this.state} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
+        return this.state.isSubmitted ? <ImportSelection data={this.state} cancelImport={this.cancelImport} /> : <UploadForm data={this.state} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
     }
 }
 

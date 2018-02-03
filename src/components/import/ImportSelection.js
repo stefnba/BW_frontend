@@ -2,7 +2,7 @@ import React from 'react'
 import axios, { post } from 'axios'
 import AccessAPI from '../api/api'
 
-class ImportQuery extends React.Component {
+class ImportSelection extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
@@ -28,4 +28,4 @@ class ImportQuery extends React.Component {
     }
 }
 
-export default ImportQuery
+export default ImportSelection
