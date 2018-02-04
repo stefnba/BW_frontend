@@ -14,7 +14,8 @@ class ImportForm extends React.Component {
             isSubmitted: false,
             account: null,
             file: null,
-            accounts: [] 
+            accounts: [], 
+            importID: null, 
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -32,8 +33,7 @@ class ImportForm extends React.Component {
         event.preventDefault();
 
         this.fileUpload(this.state.file, this.state.account).then( response => {
-            console.log(response)
-            this.setState({ isSubmitted: true })
+            this.setState({ importID: response, isSubmitted: true })
         })
     }
 
@@ -42,7 +42,6 @@ class ImportForm extends React.Component {
     }
 
     componentDidMount() {
-        
         AccessAPI('/accounts/list/').then((data) => {
             this.setState({ accounts: data, account: data[0]['id']})
         })

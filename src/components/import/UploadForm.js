@@ -12,16 +12,8 @@ class UploadForm extends React.Component {
                         <option key={account.id} value={account.id}>{account.name}</option>
                     ))}
                 </select>    
-                    
-                    
-                
-                
-                
+               
                 <button type="submit">Import</button>
-
-
-
-
             </form>
         )
     }
